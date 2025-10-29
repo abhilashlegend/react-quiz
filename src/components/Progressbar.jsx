@@ -5,20 +5,20 @@ export default function Progressbar({timer, onTimeout}) {
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {
-         setTimeout(() => {
+         const tmr = setTimeout(() => {
             onTimeout();
         }, timer);
+
+        return () => {
+            clearTimeout(tmr);
+        }
     }, [timer, onTimeout]);
 
    
     useEffect(() => {
 
         const interval = setInterval(() => {
-            setProgress(prev => {
-                if (prev >= timer) {    
-                    clearInterval(interval);
-                    return prev;
-                }   
+            setProgress(prev => { 
                 return prev + 100;
             });
         }, 100);
