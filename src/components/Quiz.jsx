@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import questions from "../questions";
 import TropyLogo from "../assets/quiz-complete.png";
+import Progressbar from "./Progressbar";
 
 export default function Quiz() {
 
@@ -20,8 +21,12 @@ export default function Quiz() {
     }
     
      const activeQuestionIndex = userAnswers.length;
-    const shuffledAnswers = questions[activeQuestionIndex].answers;
+    const shuffledAnswers = [...questions[activeQuestionIndex].answers];
         shuffledAnswers.sort(() => Math.random() - 0.5);
+
+    const skipQuestion = useCallback(() => {
+        handleAnswerSelection(null)
+    }, [handleAnswerSelection]);
 
     function handleAnswerSelection(answer) {
         setUserAnswers(prevAnswers => {
@@ -31,6 +36,7 @@ export default function Quiz() {
 
     return (
         <div id="quiz">
+            <Progressbar timer={15000} onTimeout={skipQuestion} />
             <h2 id="question"> { questions[activeQuestionIndex].text} </h2>
             <ul id="answers">
                 {shuffledAnswers.map((answer, index) => (
