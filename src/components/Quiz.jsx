@@ -46,7 +46,7 @@ export default function Quiz() {
 
     return (
         <div id="quiz">
-            <Progressbar key={activeQuestionIndex} timer={15000} onTimeout={skipQuestion} />
+            <Progressbar key={activeQuestionIndex} timer={15000} onTimeout={skipQuestion} active={answeredState === ''} />
             <h2 id="question"> { questions[activeQuestionIndex].text} </h2>
             <Answers key={questions[activeQuestionIndex].text} answers={questions[activeQuestionIndex].answers} selectedAnswer={userAnswers[userAnswers.length - 1]} answeredState={answeredState} onSelectAnswer={handleAnswerSelection} />
         </div>
