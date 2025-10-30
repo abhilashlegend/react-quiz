@@ -10,6 +10,8 @@ export default function Quiz() {
     const [answeredState, setAnsweredState] = useState('');
     
     const activeQuestionIndex = answeredState === '' ? userAnswers.length : userAnswers.length - 1;
+    // clamp index to valid range to avoid out-of-bounds access when clicks happen quickly
+    const clampedQuestionIndex = Math.max(0, Math.min(activeQuestionIndex, questions.length - 1));
     // Only show the completed summary after any "answered" feedback cycle finishes.
     // This prevents immediately showing the summary when the final answer is pushed
     // and lets the last question show its correct/wrong feedback first.
@@ -46,9 +48,9 @@ export default function Quiz() {
 
     return (
         <div id="quiz">
-            <Progressbar key={activeQuestionIndex} timer={15000} onTimeout={skipQuestion} active={answeredState === ''} />
-            <h2 id="question"> { questions[activeQuestionIndex].text} </h2>
-            <Answers key={questions[activeQuestionIndex].text} answers={questions[activeQuestionIndex].answers} selectedAnswer={userAnswers[userAnswers.length - 1]} answeredState={answeredState} onSelectAnswer={handleAnswerSelection} />
+            <Progressbar key={clampedQuestionIndex} timer={15000} onTimeout={skipQuestion} active={answeredState === ''} />
+            <h2 id="question"> { questions[clampedQuestionIndex]?.text ?? '' } </h2>
+            <Answers key={questions[clampedQuestionIndex]?.text ?? clampedQuestionIndex} answers={questions[clampedQuestionIndex]?.answers ?? []} selectedAnswer={userAnswers[userAnswers.length - 1]} answeredState={answeredState} onSelectAnswer={handleAnswerSelection} />
         </div>
     )
 }

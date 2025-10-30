@@ -336,6 +336,41 @@ header h1 {
   }
 }
 
+/* Responsive adjustments for summary stats */
+@media (max-width: 900px) {
+  #summary-stats {
+    width: 80%;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  #summary-stats {
+    width: 100%;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: none;
+  }
+
+  #summary-stats p {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    padding: 0.25rem 0;
+  }
+
+  #summary-stats .number {
+    font-size: 2rem;
+  }
+
+  #summary-stats .text {
+    margin-top: 0.25rem;
+    margin-left: 0;
+  }
+}
+
 .dialog-backdrop {
   position: fixed;
   top: 0;
