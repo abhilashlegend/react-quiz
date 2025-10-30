@@ -3,6 +3,7 @@ import questions from "../questions";
 import TropyLogo from "../assets/quiz-complete.png";
 import Progressbar from "./Progressbar";
 import Answers from "./Answers";
+import Summary from "./Summary";
 
 export default function Quiz() {
     const [userAnswers, setUserAnswers] = useState([]);
@@ -39,10 +40,7 @@ export default function Quiz() {
     
     if (isQuizFinished) {
         return (
-            <div id="summary">
-                <img src={TropyLogo} alt="Quiz Completed" />
-                <h2>Quiz Completed!</h2>
-            </div>
+            <Summary userAnswers={userAnswers} />
         );
     }
 
